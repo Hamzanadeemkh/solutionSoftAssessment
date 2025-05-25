@@ -1,22 +1,26 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, Text, View, StyleSheet } from 'react-native';
-import { fonts } from '../../assets/fonts/fonts';
-import { colors } from '../../assets/colors/colors';
-import { AppImages } from '../../assets/images/AppImages';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Image, Text, View, StyleSheet} from 'react-native';
+import {fonts} from '../../assets/fonts/fonts';
+import {colors} from '../../assets/colors/colors';
+import {AppImages} from '../../assets/images/AppImages';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import Home from '../screens/Home';
 import List from '../screens/List';
 import Invest from '../screens/Invest';
 import Portfolio from '../screens/Portfolio';
 import Search from '../screens/Search';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTab() {
   return (
     <Tab.Navigator
-      screenOptions={({ route }: any) => ({
+      screenOptions={({route}: any) => ({
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -25,9 +29,9 @@ export default function BottomTab() {
           borderTopWidth: 0,
           paddingTop: hp(2),
         },
-        tabBarIcon: ({ focused, color }) => {
+        tabBarIcon: ({focused}) => {
           let iconSource;
-          
+
           if (route.name === 'Account') {
             iconSource = AppImages.account;
           } else if (route.name === 'List') {
@@ -44,32 +48,44 @@ export default function BottomTab() {
 
           return (
             <View style={styles.tabContainer}>
-              {focused && !isSearch && (
-                <View style={styles.activeIndicator} />
-              )}
-
-              <View style={[
-                styles.iconContainer,
-                isSearch && styles.searchIconContainer
-              ]}>
-                <Image
-                  source={iconSource}
-                  style={[
-                    styles.icon,
-                    {
-                      tintColor: isSearch ? 'white' : focused ? colors.app_color : 'white',
-                    }
-                  ]}
-                  resizeMode="contain"
-                />
+              {focused && !isSearch && <View style={styles.activeIndicator} />}
+              <View
+                style={[
+                  styles.iconContainer,
+                  isSearch && styles.searchIconContainer,
+                ]}>
+                {isSearch ? (
+                  <LinearGradient
+                    colors={['#5D3ABF', '#3A1D6E', '#1E0C3B']}
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
+                    style={styles.searchIconGradient}>
+                    <Image
+                      source={iconSource}
+                      style={[styles.icon, {tintColor: 'white'}]}
+                      resizeMode="contain"
+                    />
+                  </LinearGradient>
+                ) : (
+                  <Image
+                    source={iconSource}
+                    style={[
+                      styles.icon,
+                      {
+                        tintColor: focused ? colors.app_color : 'white',
+                      },
+                    ]}
+                    resizeMode="contain"
+                  />
+                )}
               </View>
 
               {!isSearch && (
-                <Text style={[
-                  styles.label,
-                  { color: focused ? colors.app_color : 'white' }
-                ]}
-                >
+                <Text
+                  style={[
+                    styles.label,
+                    {color: focused ? colors.app_color : 'white'},
+                  ]}>
                   {route.name}
                 </Text>
               )}
@@ -106,10 +122,14 @@ const styles = StyleSheet.create({
     marginBottom: hp(0.5),
   },
   searchIconContainer: {
-    backgroundColor: colors.app_color,
     borderRadius: 100,
     padding: hp(1.7),
     marginBottom: hp(0.5),
+  },
+  searchIconGradient: {
+    borderRadius: 100,
+    padding: hp(1.7),
+    marginBottom:hp(2)
   },
   icon: {
     width: hp(2.5),
@@ -119,7 +139,6 @@ const styles = StyleSheet.create({
     fontSize: hp(1.5),
     fontFamily: fonts.medium,
     textAlign: 'center',
-      width: wp(20), 
-
+    width: wp(20),
   },
 });

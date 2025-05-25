@@ -11,7 +11,7 @@ export default function MainNavigator() {
   return (
     <>
       {Platform.OS === 'ios' && (
-        <View style={{ backgroundColor: colors.black, height: 44 }} />
+        <View style={{ backgroundColor: colors.black, height: 45 }} />
       )}
       <SafeAreaView 
         style={{flex: 1, backgroundColor: colors.black}}

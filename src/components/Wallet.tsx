@@ -16,13 +16,14 @@ import {AppImages} from '../../assets/images/AppImages';
 import Icons from './Icons';
 import {fonts} from '../../assets/fonts/fonts';
 import {colors} from '../../assets/colors/colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface WalletCardProps {
   balance?: string;
   walletAddress?: string;
 }
 
-const WalletCard: React.FC<WalletCardProps> = ({balance, walletAddress}) => {
+const WalletCard = ({balance, walletAddress}: WalletCardProps) => {
   const copyToClipboard = () => {
     Clipboard.setString(walletAddress);
     ToastAndroid.show('Wallet address copied!', ToastAndroid.SHORT);
@@ -32,7 +33,11 @@ const WalletCard: React.FC<WalletCardProps> = ({balance, walletAddress}) => {
     `${address.slice(0, 6)}...${address.slice(-4)}`;
 
   return (
-    <View style={styles.card}>
+    <LinearGradient
+      colors={['#1E0C3B', '#3A1D6E', '#5D3ABF']}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 0}}
+      style={styles.card}>
       <View style={styles.header}>
         <View style={styles.logoRow}>
           <Image source={AppImages.appLogo} style={styles.logo} />
@@ -51,12 +56,19 @@ const WalletCard: React.FC<WalletCardProps> = ({balance, walletAddress}) => {
         </View>
       </View>
       <View style={styles.divider} />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity >
+        <LinearGradient
+        style={styles.button}
+      colors={['#5D3ABF', '#3A1D6E', '#1E0C3B']}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 0}}
+>
         <Icons iconName="plus" iconType="AntDesign" size={18} color="white" />
 
         <Text style={styles.buttonText}>Add Funds</Text>
+        </LinearGradient>
       </TouchableOpacity>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -141,7 +153,7 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     width: '95%',
-    backgroundColor: "#212122",
+    backgroundColor: '#212122',
     alignSelf: 'center',
     marginVertical: hp(2),
   },
