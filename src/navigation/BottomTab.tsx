@@ -27,7 +27,7 @@ export default function BottomTab() {
         },
         tabBarIcon: ({ focused, color }) => {
           let iconSource;
-
+          
           if (route.name === 'Account') {
             iconSource = AppImages.account;
           } else if (route.name === 'List') {
@@ -68,7 +68,8 @@ export default function BottomTab() {
                 <Text style={[
                   styles.label,
                   { color: focused ? colors.app_color : 'white' }
-                ]}>
+                ]}
+                >
                   {route.name}
                 </Text>
               )}
@@ -95,9 +96,9 @@ const styles = StyleSheet.create({
   },
   activeIndicator: {
     position: 'absolute',
-    top: -hp(3),
+    top: -hp(2.7),
     width: wp(20),
-    height: 3,
+    height: 2,
     backgroundColor: colors.app_color,
     borderRadius: 2,
   },
@@ -115,9 +116,10 @@ const styles = StyleSheet.create({
     height: hp(2.5),
   },
   label: {
-    width:wp(100),
     fontSize: hp(1.5),
     fontFamily: fonts.medium,
     textAlign: 'center',
+      width: wp(20), 
+
   },
 });
